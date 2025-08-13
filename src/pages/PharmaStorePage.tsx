@@ -8,7 +8,7 @@ export function PharmaStorePage() {
     <div
       className={cn(
         isDev && '__PharmaStorePage', // DEBUG
-        'p-4 flex items-center',
+        'p-4 flex items-center justify-center',
       )}
     >
       {/* The core content */}

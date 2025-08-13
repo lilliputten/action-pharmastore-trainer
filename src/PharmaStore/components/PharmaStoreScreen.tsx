@@ -3,8 +3,10 @@ import { ArrowDown } from 'lucide-react';
 import { isDev } from '@/config';
 import { cn } from '@/lib';
 
-import { boxIds, boxes, TBoxId } from '../constants/boxes';
+import { boxIds } from '../constants/boxes';
+import { cards } from '../constants/cards';
 import { PharmaStoreBox } from './PharmaStoreBox';
+import { PharmaStoreCard } from './PharmaStoreCard';
 
 export function PharmaStoreScreen() {
   // Creating top & bottom boxes (TODO: Use memo)
@@ -19,6 +21,7 @@ export function PharmaStoreScreen() {
         isDev && '__PharmaStoreScreen', // DEBUG
         // 'bg-sky-500/20',
         'flex flex-col flex-1',
+        'max-w-[50em]',
       )}
     >
       <div
@@ -26,16 +29,16 @@ export function PharmaStoreScreen() {
           isDev && '__PharmaStoreScreen_Top', // DEBUG
           // 'bg-sky-500/5',
           'flex gap-2 items-center',
-          'min-h-30',
+          'min-h-32',
         )}
       >
         <div
           className={cn(
             isDev && '__PharmaStoreScreen_Cards', // DEBUG
-            'flex flex-col items-center flex-1 gap-2 p-2',
+            'flex flex-5 flex-col items-center flex-1 gap-2 p-2',
           )}
         >
-          <div>Cards</div>
+          <PharmaStoreCard card={cards[3]} shadows={2} />
         </div>
         <div
           className={cn(

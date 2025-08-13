@@ -1,4 +1,4 @@
-/* // Boxs:
+/* // Boxes:
   shipment	Отгрузка
   acceptance	Приемка
   basic	Основное хранение
