@@ -1,6 +1,9 @@
+import { useDraggable } from '@dnd-kit/core';
+import { CSS } from '@dnd-kit/utilities';
+
 import { isDev } from '@/config';
 import { cn } from '@/lib';
-import { TPropsWithChildrenAndClassName, TPropsWithClassName } from '@/types/react';
+import { TPropsWithClassName } from '@/types/react';
 
 import { TCardData } from '../constants/cards';
 
@@ -31,67 +34,74 @@ export function PharmaStoreCardShadow(props: TPropsWithClassName & { innerClassN
   );
 }
 
-export function PharmaStoreCardFrame(props: TPropsWithChildrenAndClassName) {
-  const { children, className } = props;
-  return (
-    <div
-      className={cn(
-        isDev && '__PharmaStoreCardFrame', // DEBUG
-        'relative',
-        'bg-(--backgroundColor)',
-        'flex items-center justify-center',
-        cardGeometryClassName,
-        className,
-      )}
-    >
-      <PharmaStoreCardShadow
-        innerClassName={cn(
-          'border-[0.2em] border-sky-800/20',
-          'transition',
-          'hover:bg-sky-500/30',
-          'hover:border-sky-800/50',
-        )}
-      />
-      {children}
-    </div>
-  );
-}
-
 interface TProps {
   card: TCardData;
   shadows?: number;
+  dragActive?: boolean;
 }
 
 export function PharmaStoreCard(props: TProps) {
-  const { card, shadows } = props;
+  const { card, shadows, dragActive } = props;
   const { text } = card;
+  // dnd
+  const { attributes, listeners, setNodeRef, transform } = useDraggable({
+    id: 'PharmaStoreCard',
+    data: card,
+  });
+  const style = {
+    // Outputs `translate3d(x, y, 0)`
+    transform: CSS.Translate.toString(transform),
+  };
   return (
     <div
       data-testid="__PharmaStoreCard"
       className={cn(
         isDev && '__PharmaStoreCard', // DEBUG
         'relative',
-        'cursor-grab',
         cardGeometryClassName,
       )}
     >
-      {!!shadows && (
-        <>
-          {shadows > 1 && (
-            <PharmaStoreCardShadow
-              className="top-[0.6em] left-[0.6em]"
-              innerClassName="opacity-40"
-            />
-          )}
-          <PharmaStoreCardShadow className="top-[0.3em] left-[0.3em]" innerClassName="opacity-70" />
-        </>
+      {!!shadows && shadows > 2 && (
+        <PharmaStoreCardShadow className="top-[0.8em] left-[0.8em]" innerClassName="opacity-20" />
       )}
-      <PharmaStoreCardFrame>
+      {!!shadows && shadows > 1 && (
+        <PharmaStoreCardShadow className="top-[0.5em] left-[0.5em]" innerClassName="opacity-50" />
+      )}
+      {!!shadows && (
+        <PharmaStoreCardShadow className="top-[0.2em] left-[0.2em]" innerClassName="opacity-80" />
+      )}
+      <div
+        ref={setNodeRef}
+        style={style}
+        {...listeners}
+        {...attributes}
+        className={cn(
+          isDev && '__PharmaStoreCardFrame', // DEBUG
+          'relative',
+          'bg-(--backgroundColor)',
+          // 'bg-white',
+          'flex items-center justify-center',
+          'cursor-grab',
+          'transition-opacity',
+          dragActive && 'opacity-50 cursor-grabbing',
+          'z-1',
+          cardGeometryClassName,
+        )}
+      >
+        <PharmaStoreCardShadow
+          innerClassName={cn(
+            'border-[0.2em] border-sky-800/20',
+            'transition',
+            'bg-sky-500/20',
+            dragActive && 'bg-sky-500/60',
+            !dragActive && 'hover:bg-sky-500/30',
+            'hover:border-sky-800/50',
+          )}
+        />
         <div
           className={cn(
             isDev && '__PharmaStoreCard_Text', // DEBUG
             'text-center m-2',
-            // 'truncate',
             'overflow-hidden text-ellipsis',
             'pointer-events-none',
             'z-1',
@@ -99,7 +109,7 @@ export function PharmaStoreCard(props: TProps) {
         >
           {text}
         </div>
-      </PharmaStoreCardFrame>
+      </div>
     </div>
   );
 }

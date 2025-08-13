@@ -1,3 +1,5 @@
+import React from 'react';
+import { useDroppable } from '@dnd-kit/core';
 import { ArrowUp } from 'lucide-react';
 
 import { isDev } from '@/config';
@@ -15,9 +17,12 @@ export function PharmaStoreBox(props: TProps) {
   const isTop = !isBottom;
   const boxData = boxes[id];
   const { title } = boxData;
+  // dnd
+  const { isOver, setNodeRef } = useDroppable({ id, data: boxData });
   return (
     <div
       id={id}
+      ref={setNodeRef}
       data-testid="__PharmaStoreBox"
       data-bottom={isBottom}
       className={cn(
@@ -28,6 +33,7 @@ export function PharmaStoreBox(props: TProps) {
         'size-[8em]',
         'min-size-[8em]',
         'border-[0.4em] border-white/40',
+        isOver && 'border-sky-500/50',
         isTop && 'mb-10',
         isBottom && 'mt-10',
       )}

@@ -54,6 +54,7 @@ body,
   /* align-content: space-around; */
   justify-content: center;
   flex: 1;
+  overflow: hidden;
 }
 
 #root {
