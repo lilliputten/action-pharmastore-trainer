@@ -28,7 +28,7 @@
   font-weight: 400;
 
   /* Set font size */
-  font-size: max(2vh, 16px); /* max(13px, 1.62vh); */
+  font-size: 2vw; /* max(13px, 1.62vh); */
 
   color-scheme: light dark;
   color: var(--textColor);
@@ -43,6 +43,17 @@
 body {
   margin: 0;
   padding: 0;
+}
+html,
+body,
+#root {
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  /* align-content: space-around; */
+  justify-content: center;
+  flex: 1;
 }
 
 #root {

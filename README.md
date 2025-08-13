@@ -9,7 +9,7 @@
 
 It's a simple pharmacy wahrehouse trainer.
 
-![Application banner](public/opengraph-image.jpg "Application banner")
+![Application banner](public/opengraph-image.jpg 'Application banner')
 
 ## Build info (auto-generated)
 
