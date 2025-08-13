@@ -27,7 +27,7 @@ export function PharmaStoreBox(props: TProps) {
         'flex items-center justify-center',
         'size-[8em]',
         'min-size-[8em]',
-        'border border-[0.4em] border-white/40',
+        'border-[0.4em] border-white/40',
         isTop && 'mb-10',
         isBottom && 'mt-10',
       )}
@@ -35,10 +35,9 @@ export function PharmaStoreBox(props: TProps) {
       <div
         className={cn(
           isDev && '__PharmaStoreBox_Text', // DEBUG
-          'text-center',
+          'text-center m-1',
           // 'truncate',
           'overflow-hidden text-ellipsis',
-          'm-1',
         )}
       >
         {title}

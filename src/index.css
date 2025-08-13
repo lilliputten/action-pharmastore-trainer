@@ -28,7 +28,7 @@
   font-weight: 400;
 
   /* Set font size */
-  font-size: 2vw; /* max(13px, 1.62vh); */
+  font-size: min(2vw, 2.5vh); /* max(13px, 1.62vh); */
 
   color-scheme: light dark;
   color: var(--textColor);
