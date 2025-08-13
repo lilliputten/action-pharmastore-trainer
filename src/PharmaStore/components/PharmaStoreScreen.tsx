@@ -1,5 +1,7 @@
+import React from 'react';
 import { ArrowDown } from 'lucide-react';
 
+import { ProgressNav } from '@/components/ProgressNav';
 import { isDev } from '@/config';
 import { cn } from '@/lib';
 
@@ -9,17 +11,20 @@ import { PharmaStoreBox } from './PharmaStoreBox';
 import { PharmaStoreCard } from './PharmaStoreCard';
 
 export function PharmaStoreScreen() {
+  const [step, setStep] = React.useState(0);
+  const stepsCount = cards.length;
+  const restSteps = stepsCount - step - 1;
+
   // Creating top & bottom boxes (TODO: Use memo)
-  const halfCount = Math.ceil(boxIds.length / 2);
-  const topIds = boxIds.slice(0, halfCount);
-  const bottomIds = boxIds.slice(halfCount);
+  const halfBoxesCount = Math.ceil(boxIds.length / 2);
+  const topIds = boxIds.slice(0, halfBoxesCount);
+  const bottomIds = boxIds.slice(halfBoxesCount);
 
   return (
     <div
       data-testid="__PharmaStoreScreen"
       className={cn(
         isDev && '__PharmaStoreScreen', // DEBUG
-        // 'bg-sky-500/20',
         'flex flex-col flex-1',
         'max-w-[50em]',
       )}
@@ -27,7 +32,6 @@ export function PharmaStoreScreen() {
       <div
         className={cn(
           isDev && '__PharmaStoreScreen_Top', // DEBUG
-          // 'bg-sky-500/5',
           'flex gap-2 items-center',
           'min-h-32',
         )}
@@ -38,7 +42,7 @@ export function PharmaStoreScreen() {
             'flex flex-5 flex-col items-center flex-1 gap-2 p-2',
           )}
         >
-          <PharmaStoreCard card={cards[3]} shadows={2} />
+          <PharmaStoreCard card={cards[step]} shadows={restSteps} />
         </div>
         <div
           className={cn(
@@ -95,6 +99,7 @@ export function PharmaStoreScreen() {
           </div>
         </div>
       </div>
+      <ProgressNav step={step} stepsCount={stepsCount} />
     </div>
   );
 }
