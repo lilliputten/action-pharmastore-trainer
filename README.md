@@ -5,7 +5,7 @@
 
 # Action - Pharmacy Warehouse Trainer - Vercel Hosted Vite React Application
 
-[The VLOOKUP trainer applicaiton](https://action-pharmastore-trainer.vercel.app/?en) is implemented via React, Vite, TS, and Tailwind, deployed to Vercel. Developed for Russian company [Action Academy](https://academy.action-mcfr.ru/) (it supports both English and Russian localizations).
+[The VLOOKUP trainer applicaiton](https://action-pharmastore-trainer.vercel.app/) is implemented via React, Vite, TS, and Tailwind, deployed to Vercel. Developed for Russian company [Action Academy](https://academy.action-mcfr.ru/) (it supports both English and Russian localizations).
 
 It's a simple pharmacy wahrehouse trainer.
 
