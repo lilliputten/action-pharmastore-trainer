@@ -25,7 +25,7 @@ const animationDuration = 2000;
 const nextStepDelay = 1000;
 
 export function PharmaStoreScreen() {
-  const [step, setStep] = React.useState(9);
+  const [step, setStep] = React.useState(isDev ? 10 : 0);
   const stepsCount = cards.length;
   const restSteps = stepsCount - step - 1;
   const isFinished = restSteps < 0;
@@ -204,7 +204,7 @@ export function PharmaStoreScreen() {
             !isFinished && 'opacity-0 pointer-events-none',
           )}
         >
-          <h1 className="text-slate-500 font-medium">Все задачи завершены</h1>
+          <h1 className="text-slate-500 font-medium text-center text-5xl leading-[1.3em] p-4 pb-10">Вы справились с заданием и распределили все препараты по нужным зонам</h1>
           {/* // TODO: Button
           <div
             className={cn(
