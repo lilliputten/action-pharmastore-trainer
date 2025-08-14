@@ -3,7 +3,7 @@ import { ToastOptions } from 'react-toastify';
 export const toastAutoCloseTimeout = 5000;
 
 export const defaultToastOptions: ToastOptions = {
-  position: 'bottom-right',
+  position: 'top-right',
   autoClose: toastAutoCloseTimeout,
   hideProgressBar: false,
   closeOnClick: true,

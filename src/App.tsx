@@ -4,6 +4,8 @@ import { ToastContainer } from 'react-toastify';
 import { TailwindIndicator } from '@/blocks/TailwindIndicator';
 import { PharmaStorePage } from '@/pages/PharmaStorePage';
 
+import { isDev } from './config';
+
 // import '@/i18n/i18n';
 
 /* // NOTE: Don't use routes for action projects: as they use relative paths for hosting apps
@@ -18,6 +20,8 @@ import { PharmaStorePage } from '@/pages/PharmaStorePage';
  * }
  */
 
+const __showIndicator = false && isDev;
+
 function App() {
   return (
     <HelmetProvider>
@@ -28,7 +32,7 @@ function App() {
       <AppRoutes />
       */}
       <ToastContainer />
-      <TailwindIndicator />
+      {__showIndicator && <TailwindIndicator />}
     </HelmetProvider>
   );
 }

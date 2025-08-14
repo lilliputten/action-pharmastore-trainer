@@ -28,7 +28,7 @@
   font-weight: 400;
 
   /* Set font size */
-  font-size: min(2vw, 2.5vh); /* max(13px, 1.62vh); */
+  font-size: min(2vw, 2.4vh); /* max(13px, 1.62vh); */
 
   color-scheme: light dark;
   color: var(--textColor);
@@ -54,6 +54,7 @@ body,
   /* align-content: space-around; */
   justify-content: center;
   flex: 1;
+  overflow: hidden;
 }
 
 #root {
@@ -146,6 +147,23 @@ body,
   }
   button {
     background-color: #f9f9f9;
+  }
+}
+
+.disappear-animation-after {
+  &:after {
+    opacity: 0;
+    animation: disappear-animation 2s;
+  }
+}
+
+@keyframes disappear-animation {
+  0%,
+  100% {
+    opacity: 0;
+  }
+  15% {
+    opacity: 1;
   }
 }
 
