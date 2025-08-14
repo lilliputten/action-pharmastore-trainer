@@ -1,5 +1,5 @@
 import React from 'react';
-import { ChevronLeft, ChevronRight, Info, Maximize, Minimize, RotateCcw } from 'lucide-react';
+import { ArrowLeft, ArrowRight, Info, Maximize, Minimize, RotateCcw } from 'lucide-react';
 import { toast } from 'react-toastify';
 import screenfull from 'screenfull';
 
@@ -38,6 +38,7 @@ export function ProgressNav(props: TProgressNavProps) {
   } = props;
   const isFirstStep = !step;
   const isLastStep = step === stepsCount - 1;
+  const isFinished = step > stepsCount - 1;
   const [showHelp, setShowHelp] = React.useState(false);
 
   const memo = React.useMemo<TMemo>(() => ({}), []);
@@ -54,7 +55,7 @@ export function ProgressNav(props: TProgressNavProps) {
   }, [memo]);
 
   React.useEffect(() => {
-    handleShowHelp();
+    // handleShowHelp();
   }, [handleShowHelp]);
 
   React.useEffect(() => {
@@ -77,7 +78,7 @@ export function ProgressNav(props: TProgressNavProps) {
         'select-none',
         'bottom-4 left-4 right-4',
         'h-[3em]',
-        'flex items-stretch justify-center gap-2',
+        'flex items-stretch justify-center gap-2 z-3',
       )}
     >
       {!isFirstStep && setPrevStep && (
@@ -90,7 +91,7 @@ export function ProgressNav(props: TProgressNavProps) {
           title="Предыдущий шаг"
           onClick={setPrevStep}
         >
-          <ChevronLeft size="2em" />
+          <ArrowLeft size="2em" />
         </NavIcon>
       )}
       {!isFirstStep && setFirstStep && (
@@ -123,17 +124,19 @@ export function ProgressNav(props: TProgressNavProps) {
       >
         <FullScreenIcon size="2em" />
       </NavIcon>
-      <NavIcon
-        className={cn(
-          isDev && '__ProgressNav_Help', // DEBUG
-          'bg-teal-500 hover:bg-teal-600',
-        )}
-        disabled={!helpMessage || showHelp}
-        title="Подсказка"
-        onClick={handleShowHelp}
-      >
-        <Info size="2em" />
-      </NavIcon>
+      {!isFinished && (
+        <NavIcon
+          className={cn(
+            isDev && '__ProgressNav_Help', // DEBUG
+            'bg-teal-500 hover:bg-teal-600',
+          )}
+          disabled={!helpMessage || showHelp}
+          title="Подсказка"
+          onClick={handleShowHelp}
+        >
+          <Info size="2em" />
+        </NavIcon>
+      )}
       {!isLastStep && setNextStep && (
         <NavIcon
           className={cn(
@@ -144,7 +147,7 @@ export function ProgressNav(props: TProgressNavProps) {
           title="Следующий шаг"
           onClick={setNextStep}
         >
-          <ChevronRight size="2em" />
+          <ArrowRight size="2em" />
         </NavIcon>
       )}
     </div>
@@ -193,7 +196,7 @@ interface TNavStatusProps {
 function NavStatus(props: TNavStatusProps) {
   const { className, step, stepsCount } = props;
   const stepNo = step + 1;
-  const isFinished = stepNo >= stepsCount;
+  const isFinished = stepNo > stepsCount;
   const text = isFinished ? 'Завершено' : `${stepNo} / ${stepsCount}`;
   return (
     <div
@@ -201,7 +204,7 @@ function NavStatus(props: TNavStatusProps) {
         isDev && '__ProgressNav_Status', // DEBUG
         'flex items-center justify-center',
         'bg-slate-500 text-white',
-        isFinished && 'bg-green-500 uppercase font-bold',
+        isFinished && 'bg-green-500 uppercase font-semibold',
         'rounded-3xl shadow-lg/30',
         'px-6 py-0',
         'truncate',
